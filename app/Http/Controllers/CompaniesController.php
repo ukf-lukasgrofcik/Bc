@@ -11,7 +11,9 @@ class CompaniesController extends BaseController
 {
 
     public function index(){
-        $companies = Company::orderBy('created_at', 'desc')->get();
+        $companies = Company::orderBy('created_at', 'desc')
+            ->with([ 'owner' ])
+            ->get();
 
         return view('system.companies.index', compact('companies'));
     }

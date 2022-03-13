@@ -16,24 +16,26 @@
                             </h4>
                         </div>
 
-                        <div class="col-sm-6">
-                            <div class="card-title-desc float-right">
-                                <form action="{{ route('company.employees.store') }}" method="post">
-                                    @csrf
+                        @if(auth()->user()->clearance('owner'))
+                            <div class="col-sm-6">
+                                <div class="card-title-desc float-right">
+                                    <form action="{{ route('company.employees.store') }}" method="post">
+                                        @csrf
 
-                                    <div class="form-group d-inline-block">
-                                        <input type="text" name="email" value="{{ old('email') }}" class="form-control {{ $errors->has('email') ? 'parsley-error' : '' }}" id="email" placeholder="E-mail">
-                                        @include('auth._partials._errors', ['column' => 'email'])
-                                    </div>
+                                        <div class="form-group d-inline-block">
+                                            <input type="text" name="email" value="{{ old('email') }}" class="form-control {{ $errors->has('email') ? 'parsley-error' : '' }}" id="email" placeholder="E-mail">
+                                            @include('auth._partials._errors', ['column' => 'email'])
+                                        </div>
 
-                                    <div class="form-group d-inline-block">
-                                        <button type="submit" class="btn btn-primary waves-effect waves-light">
-                                            Pozvať zamestnanca
-                                        </button>
-                                    </div>
-                                </form>
+                                        <div class="form-group d-inline-block">
+                                            <button type="submit" class="btn btn-primary waves-effect waves-light">
+                                                Pozvať zamestnanca
+                                            </button>
+                                        </div>
+                                    </form>
+                                </div>
                             </div>
-                        </div>
+                        @endif
                     </div>
 
                     @include('system._partials._alert')

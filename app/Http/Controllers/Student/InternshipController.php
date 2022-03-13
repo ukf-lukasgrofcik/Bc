@@ -16,7 +16,9 @@ class InternshipController extends BaseController
 {
 
     public function internship(){
-        $internship = auth()->user()->internship;
+        $internship = auth()->user()->internship()
+            ->with([ 'tutor', 'worker', 'worker.company', 'company', 'student', 'status', 'files' ])
+            ->first();
 
         return view('system.student.internship', compact('internship'));
     }

@@ -15,7 +15,9 @@ class EntriesController extends BaseController
     use UploadTrait, DeleteTrait;
 
     public function index(Internship $internship){
-        $entries = $internship->entries;
+        $entries = $internship->entries()
+            ->with([ 'files' ])
+            ->get();
 
         return view('system.student.entries.index', compact('internship', 'entries'));
     }

@@ -11,7 +11,9 @@ class WorkplacesController extends BaseController
 {
 
     public function index(){
-        $workplaces = Workplace::orderBy('created_at', 'desc')->get();
+        $workplaces = Workplace::orderBy('created_at', 'desc')
+            ->with([ 'leader' ])
+            ->get();
 
         return view('system.workplaces.index', compact('workplaces'));
     }
