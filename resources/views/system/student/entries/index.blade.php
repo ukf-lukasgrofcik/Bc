@@ -16,11 +16,11 @@
 
                         <div class="col-sm-6">
                             <p class="card-title-desc float-right">
-                                <a href="{{ route('student.internship.entries.create', $internship) }}" class="btn btn-primary waves-effect waves-light">
-                                    Nový záznam
-                                </a>
-
                                 @if(auth()->user()->clearance('student'))
+                                    <a href="{{ route('student.internship.entries.create', $internship) }}" class="btn btn-primary waves-effect waves-light">
+                                        Nový záznam
+                                    </a>
+
                                     <a href="{{ route('student.internship', $internship) }}" class="btn btn-primary waves-effect waves-light">
                                         Späť na odbornú prax
                                     </a>

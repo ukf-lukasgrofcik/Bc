@@ -11,7 +11,9 @@ class StatusesController extends BaseController
 {
 
     public function index(){
-        $statuses = Status::orderBy('created_at', 'desc')->get();
+        $statuses = Status::orderBy('created_at', 'desc')
+            ->with([ 'internships' ])
+            ->get();
 
         return view('system.statuses.index', compact('statuses'));
     }

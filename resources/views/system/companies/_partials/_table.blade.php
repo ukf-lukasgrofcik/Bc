@@ -25,10 +25,6 @@
                         <a href="{{ route('users.index', [ 'company' => $company->id ]) }}" title="Zamestnanci" class="btn btn-info action waves-effect waves-light">
                             <i class="fas fa-users"></i>
                         </a>
-                    @else
-                        <a href="{{ route('companies.owner.create', $company) }}" title="Pridať majiteľa" class="btn btn-warning action waves-effect waves-light">
-                            <i class="fas fa-plus"></i>
-                        </a>
                     @endif
 
                     <form action="{{ route('companies.delete', $company) }}" method="post" style="display: inline-block;">

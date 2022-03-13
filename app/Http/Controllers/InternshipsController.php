@@ -4,48 +4,41 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\CreateInternshipRequest;
 use App\Http\Requests\UpdateInternshipRequest;
+use App\Http\Requests\UploadStatementRequest;
 use App\Models\Internship;
+use App\Models\Status;
+use App\Traits\UploadTrait;
 use Illuminate\Http\Request;
 
 class InternshipsController extends BaseController
 {
+    use UploadTrait;
 
     public function index(){
-        $internships = Internship::orderBy('created_at', 'desc')->get();
+        $internships = Internship::orderBy('created_at', 'desc')
+            ->when($status = request('status'), function ($q) use ($status){
+                $q->where('status_id', $status);
+            })
+            ->with([ 'tutor', 'worker', 'worker.company', 'company', 'student', 'status', 'files' ])
+            ->get();
+        $statuses = Status::all();
 
-        return view('system.internships.index', compact('internships'));
+        return view('system.internships.index', compact('internships', 'statuses'));
     }
 
-    public function create(){
-        return view('system.internships.create');
+    public function statement(Internship $internship){
+        return view('system.internships.statement', compact('internship'));
     }
 
-    public function store(CreateInternshipRequest $request){
-        $internship = Internship::create($request->all());
+    public function statement_upload(UploadStatementRequest $request, Internship $internship){
+        $this->upload_file('statement', 'internships', $internship, 'statement');
 
-        return redirect()->route('internships.index');
-    }
+        $internship->status_id = status('finished')->id;
+        $internship->save();
 
-    public function edit($id){
-        $internship = Internship::findOrFail($id);
-
-        return view('system.internships.edit', compact('internship'));
-    }
-
-    public function update(UpdateInternshipRequest $request, $id){
-        $internship = Internship::findOrFail($id);
-
-        $internship->update($request->all());
+        $this->_setFlashMessage('success', "Výkaz bol úspešne nahratý.");
 
         return back();
-    }
-
-    public function delete(Request $request, $id){
-        $internship = Internship::findOrFail($id);
-
-        $internship->delete();
-
-        return redirect()->route('internships.index');
     }
 
 }

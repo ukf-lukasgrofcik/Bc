@@ -22,13 +22,11 @@ class EloquentSeeder extends Seeder
 
         $seeds = $this->seeds();
 
-        foreach ($seeds as $seed)
-            if(!$this->exists($seed))
-                $this->insert($seed);
+        foreach ($seeds as $seed) if(!$this->exists($seed)) $this->insert($seed);
     }
 
     private function exists($seed, $column = 'email'){
-        DB::table($this->table)
+        return DB::table($this->table)
             ->where($column, $seed[$column])
             ->exists();
     }

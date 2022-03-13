@@ -16,6 +16,7 @@ class SubjectsController extends BaseController
             ->when($study_programme = request('study_programme'), function ($q) use($study_programme){
                 $q->where('study_programme_id', $study_programme);
             })
+            ->with([ 'study_programme' ])
             ->get();
 
         $study_programmes = StudyProgramme::orderBy('name', 'asc')->get();

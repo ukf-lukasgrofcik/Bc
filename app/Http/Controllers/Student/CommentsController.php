@@ -10,7 +10,10 @@ class CommentsController extends BaseController
 {
 
     public function index(Internship $internship){
-        $comments = $internship->comments;
+        $comments = $internship->comments()
+            ->with(['user'])
+            ->orderBy('created_at', 'asc')
+            ->get();
 
         return view('system.student.comments', compact('comments', 'internship'));
     }

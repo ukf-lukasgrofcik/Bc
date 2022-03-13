@@ -126,15 +126,15 @@
                     </button>
                     <div class="dropdown-menu dropdown-menu-right">
 
-                        <a class="dropdown-item" href="#">
+                        <a class="dropdown-item" href="{{ route('settings.profile') }}">
                             <i class="uil uil-user-circle font-size-18 align-middle text-muted mr-1"></i>
                             <span class="align-middle">Profil</span>
                             <span class="badge badge-soft-success badge-pill mt-1 ml-2">0</span>
                         </a>
 
-                        <a class="dropdown-item d-block" href="#">
+                        <a class="dropdown-item d-block" href="{{ route('settings.password') }}">
                             <i class="uil uil-cog font-size-18 align-middle mr-1 text-muted"></i>
-                            <span class="align-middle">Nastavenia</span>
+                            <span class="align-middle">Zmena hesla</span>
                         </a>
 
                         <form id="logout-form" action="{{ route('logout') }}" method="post">
