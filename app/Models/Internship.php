@@ -19,6 +19,10 @@ class Internship extends BaseModel
         'company_id',
     ];
 
+    public function files(){
+        return $this->morphMany(File::class, 'fileable');
+    }
+
     public function student(){
         return $this->belongsTo(User::class, 'student_id');
     }
@@ -53,6 +57,12 @@ class Internship extends BaseModel
 
     public function entries(){
         return $this->hasMany(Entry::class);
+    }
+
+    public function getStatementAttribute(){
+        return $this->files->where('type', 'statement')->count() > 0
+            ? $this->files->where('type', 'statement')->sortByDesc('created_at')->first()
+            : false;
     }
 
 }

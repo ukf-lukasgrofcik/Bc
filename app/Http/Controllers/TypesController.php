@@ -11,7 +11,9 @@ class TypesController extends BaseController
 {
 
     public function index(){
-        $types = Type::orderBy('created_at', 'desc')->get();
+        $types = Type::orderBy('created_at', 'desc')
+            ->with([ 'internships' ])
+            ->get();
 
         return view('system.types.index', compact('types'));
     }

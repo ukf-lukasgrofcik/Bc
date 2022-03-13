@@ -14,9 +14,12 @@ class Clearance
      * @param  \Closure  $next
      * @return mixed
      */
-    public function handle(Request $request, Closure $next, $role)
+    public function handle(Request $request, Closure $next, $role, $addition_role = null)
     {
-        if(!auth()->user()->clearance($role)) abort(404); // Abort if not allowed
+        // Abort if not allowed
+        if(!auth()->user()->clearance($role))
+            if(isset($addition_role) && !auth()->user()->clearance($addition_role)) abort(404);
+
 
         return $next($request);
     }

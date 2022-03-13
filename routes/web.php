@@ -25,6 +25,11 @@ Route::get('/', [\App\Http\Controllers\DashboardController::class, 'index'])->na
 
 Route::middleware(['auth'])->group(function (){
 
+    Route::get('/profile', [Controllers\UserSettingsController::class, 'profile'])->name('settings.profile');
+    Route::post('/profile', [Controllers\UserSettingsController::class, 'update'])->name('settings.update');
+    Route::get('/password', [Controllers\UserSettingsController::class, 'password'])->name('settings.password');
+    Route::post('/password', [Controllers\UserSettingsController::class, 'password_update'])->name('settings.password_update');
+
     Route::middleware(['clearance:student'])->group(function (){
         Route::get('/internship', [Student\InternshipController::class, 'internship'])->name('student.internship');
         Route::get('/internship/create', [Student\InternshipController::class, 'create'])->name('student.internship.create');
@@ -32,16 +37,19 @@ Route::middleware(['auth'])->group(function (){
         Route::get('/internship/ajax/study-programme', [Student\InternshipController::class, 'ajax_study_programme'])->name('student.internship.ajax.study_programme');
         Route::post('/internship/company-invite', [Student\InternshipController::class, 'company_invite'])->name('student.company.invite');
 
-        Route::get('/internship/{internship}/comments', [Student\CommentsController::class, 'index'])->name('student.internship.comments');
-        Route::post('/internship/{internship}/comments', [Student\CommentsController::class, 'store'])->name('student.internship.comments.store');
-
-        Route::get('/internship/{internship}/entries', [Student\EntriesController::class, 'index'])->name('student.internship.entries.index');
         Route::get('/internship/{internship}/entries/create', [Student\EntriesController::class, 'create'])->name('student.internship.entries.create');
         Route::post('/internship/{internship}/entries/create', [Student\EntriesController::class, 'store'])->name('student.internship.entries.store');
         Route::get('/internship/{internship}/entries/{entry}', [Student\EntriesController::class, 'edit'])->name('student.internship.entries.edit');
         Route::post('/internship/{internship}/entries/{entry}', [Student\EntriesController::class, 'update'])->name('student.internship.entries.update');
         Route::post('/internship/{internship}/entries/{entry}/delete', [Student\EntriesController::class, 'delete'])->name('student.internship.entries.delete');
 
+    });
+
+    Route::middleware(['clearance:student,admin'])->group(function (){
+        // Student/Admin shared routes
+        Route::get('/internship/{internship}/comments', [Student\CommentsController::class, 'index'])->name('student.internship.comments');
+        Route::post('/internship/{internship}/comments', [Student\CommentsController::class, 'store'])->name('student.internship.comments.store');
+        Route::get('/internship/{internship}/entries', [Student\EntriesController::class, 'index'])->name('student.internship.entries.index');
     });
 
     Route::middleware(['clearance:employee'])->group(function (){
@@ -61,12 +69,6 @@ Route::middleware(['auth'])->group(function (){
     });
 
     Route::middleware(['clearance:admin'])->group(function (){
-        // Student shared routes
-        Route::get('/internship/{internship}/comments', [Student\CommentsController::class, 'index'])->name('student.internship.comments');
-        Route::post('/internship/{internship}/comments', [Student\CommentsController::class, 'store'])->name('student.internship.comments.store');
-        Route::get('/internship/{internship}/entries', [Student\EntriesController::class, 'index'])->name('student.internship.entries.index');
-
-
         // Users
         Route::get('/users', [Controllers\UsersController::class, 'index'])->name('users.index');
         Route::get('/users/create', [Controllers\UsersController::class, 'create'])->name('users.create');
@@ -113,6 +115,8 @@ Route::middleware(['auth'])->group(function (){
         Route::get('/internships/edit/{internship}', [Controllers\InternshipsController::class, 'edit'])->name('internships.edit');
         Route::post('/internships/edit/{internship}', [Controllers\InternshipsController::class, 'update'])->name('internships.update');
         Route::post('/internships/delete/{internship}', [Controllers\InternshipsController::class, 'delete'])->name('internships.delete');
+        Route::get('/internships/statement/{internship}', [Controllers\InternshipsController::class, 'statement'])->name('internships.statement');
+        Route::post('/internships/statement/{internship}', [Controllers\InternshipsController::class, 'statement_upload'])->name('internships.statement.upload');
 
         // Study programmes
         Route::get('/study-programmes', [Controllers\StudyProgrammesController::class, 'index'])->name('study_programmes.index');

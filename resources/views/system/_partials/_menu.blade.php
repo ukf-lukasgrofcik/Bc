@@ -64,14 +64,16 @@
                             </ul>
                         </li>
 
-                        <li>
-                            <a href="javascript: void(0);" class="has-arrow waves-effect">
-                                <i class="uil-window-section"></i><span>Administrácia</span>
-                            </a>
-                            <ul class="sub-menu" aria-expanded="false">
-                                <li><a href="{{ route('company.employees.index', auth()->user()->company) }}">Zoznam používateľov</a></li>
-                            </ul>
-                        </li>
+                            @if(auth()->user()->clearance('owner'))
+                                <li>
+                                    <a href="javascript: void(0);" class="has-arrow waves-effect">
+                                        <i class="uil-window-section"></i><span>Administrácia</span>
+                                    </a>
+                                    <ul class="sub-menu" aria-expanded="false">
+                                        <li><a href="{{ route('company.employees.index', auth()->user()->company) }}">Zoznam zamestnancov</a></li>
+                                    </ul>
+                                </li>
+                            @endif
                     @endif
 
                     @if(auth()->user()->clearance('admin'))

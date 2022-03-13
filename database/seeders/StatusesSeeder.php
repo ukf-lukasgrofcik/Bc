@@ -35,6 +35,12 @@ class StatusesSeeder extends Seeder
                 'created_at' => now(),
                 'updated_at' => now(),
             ],
+            [
+                'name' => 'Dokončená',
+                'slug' => 'finished',
+                'created_at' => now(),
+                'updated_at' => now(),
+            ],
         ];
     }
 

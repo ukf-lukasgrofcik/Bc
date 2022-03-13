@@ -31,6 +31,10 @@
                         <a href="{{ $file->full_path }}" target="_blank" title="Výkaz" class="btn btn-success waves-effect waves-light action">
                             <i class="fa fa-file"></i>
                         </a>
+                    @else
+                        <a href="{{ route('internships.statement', $internship) }}" title="Nahrať výkaz" class="btn btn-warning waves-effect waves-light action">
+                            <i class="fa fa-file"></i>
+                        </a>
                     @endif
                 </td>
             </tr>

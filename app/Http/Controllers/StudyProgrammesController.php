@@ -11,7 +11,9 @@ class StudyProgrammesController extends BaseController
 {
 
     public function index(){
-        $study_programmes = StudyProgramme::orderBy('created_at', 'desc')->get();
+        $study_programmes = StudyProgramme::orderBy('created_at', 'desc')
+            ->with([ 'subjects' ])
+            ->get();
 
         return view('system.study_programmes.index', compact('study_programmes'));
     }
