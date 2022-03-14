@@ -127,6 +127,52 @@
 
                 </div>
             </div>
+
+            <div class="card">
+                <div class="card-body">
+                    <h4 class="card-title">Testovacie údaje</h4>
+
+                    <p>Heslo je pre každého používateľa: <b>admin</b></p>
+
+                    <ul>
+                        <li>Vedúci fakulty - <b>admin</b></li>
+                        <li>Vedúci pracoviska - <b>leader1</b></li>
+                        <li>Vedúci pracoviska - <b>leader2</b></li>
+                        <li>Profesor - <b>lecturer1</b></li>
+                        <li>Profesor - <b>lecturer2</b></li>
+                        <li>Študent - <b>student1</b></li>
+                        <li>Študent - <b>student2</b></li>
+                        <li>Študent - <b>student3</b></li>
+                        <li>Majiteľ firmy - <b>owner1</b></li>
+                        <li>Majiteľ firmy - <b>owner2</b></li>
+                        <li>Zamestnanec firmy - <b>employee1</b></li>
+                    </ul>
+
+                    <h4 class="card-title">Pravomoci pre zamestnancov školy</h4>
+
+                    <ul>
+                        <li>Používatelia - zobraziť dokáže každý zamestnanec a upravovať dokáže každý zamestnanec</li>
+                        <li>Spoločnosti - zobraziť dokáže každý zamestnanec a upravovať dokáže každý zamestnanec</li>
+                        <li>Pracoviská - zobraziť dokáže každý zamestnanec a upravovať dokáže iba vedúci fakulty</li>
+                        <li>Študíjne programy - zobraziť dokáže každý zamestnanec a upravovať dokáže iba vedúci fakulty alebo vedúci pracoviska</li>
+                        <li>Predmety - zobraziť dokáže každý zamestnanec a upravovať dokáže každý zamestnanec</li>
+                        <li>Typy zmluv - zobraziť dokáže každý zamestnanec a upravovať dokáže iba vedúci fakulty alebo vedúci pracoviska</li>
+                        <li>Statusy - zobraziť dokáže každý zamestnanec a upravovať nedokáže nikto</li>
+                        <li>Odborné praxe - zobraziť profesor iba svoje odborné praxe, vedúci pracoviska praxe pracoviska a vedúci fakulty všetky</li>
+                    </ul>
+
+                    <h4 class="card-title">Pravomoci pre zamestnancov firmy</h4>
+
+                    <ul>
+                        <li>Zamestnanci - zobraziť dokáže iba majiteľ firmy a dokáže priradiť zamestnanca k praxi</li>
+                        <li>Odborné praxe - zobraziť dokáže každý zamestnanec (ak nie je majiteľ iba svoje)</li>
+                    </ul>
+
+                    <h4 class="card-title">Odborná prax</h4>
+
+                    <p>Študent je pozvaný profesorom do systému cez (Administrácia > Používatelia) a následne si vytvorí odbornú prax. Môže pozvať spoločnosť v ktorej pracuje ak ju nenašiel medzi existujúcimi. Následne pozvaný majiteľ firmy sa zaregistruje do systému a pozve zodpovednú osobu do systému ak v ňom nie je. Priradí zamestnanca k odbornej praxi, čím sa schváli odborná prax. Študent nahráva do systému záznamy a má konverzáciu s profesormi v sekcii Komentáre. Na konci profesor nahrá výkaz k odbornej praxi, čím sa dokončí prax.</p>
+                </div>
+            </div>
         </div>
     </div>
 @endsection
