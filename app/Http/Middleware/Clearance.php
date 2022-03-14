@@ -18,8 +18,7 @@ class Clearance
     {
         // Abort if not allowed
         if(!auth()->user()->clearance($role))
-            if(isset($addition_role) && !auth()->user()->clearance($addition_role)) abort(404);
-
+            if(!isset($addition_role) || !auth()->user()->clearance($addition_role)) abort(404);
 
         return $next($request);
     }
