@@ -68,7 +68,7 @@ Route::middleware(['auth'])->group(function (){
         });
     });
 
-    Route::middleware(['clearance:admin'])->group(function (){
+    Route::middleware(['clearance:lecturer'])->group(function (){
         // Users
         Route::get('/users', [Controllers\UsersController::class, 'index'])->name('users.index');
         Route::get('/users/create', [Controllers\UsersController::class, 'create'])->name('users.create');
@@ -76,11 +76,13 @@ Route::middleware(['auth'])->group(function (){
 
         // Workplaces
         Route::get('/workplaces', [Controllers\WorkplacesController::class, 'index'])->name('workplaces.index');
-        Route::get('/workplaces/create', [Controllers\WorkplacesController::class, 'create'])->name('workplaces.create');
-        Route::post('/workplaces/create', [Controllers\WorkplacesController::class, 'store'])->name('workplaces.store');
-        Route::get('/workplaces/edit/{workplace}', [Controllers\WorkplacesController::class, 'edit'])->name('workplaces.edit');
-        Route::post('/workplaces/edit/{workplace}', [Controllers\WorkplacesController::class, 'update'])->name('workplaces.update');
-        Route::post('/workplaces/delete/{workplace}', [Controllers\WorkplacesController::class, 'delete'])->name('workplaces.delete');
+        Route::middleware(['clearance:admin'])->group(function (){
+            Route::get('/workplaces/create', [Controllers\WorkplacesController::class, 'create'])->name('workplaces.create');
+            Route::post('/workplaces/create', [Controllers\WorkplacesController::class, 'store'])->name('workplaces.store');
+            Route::get('/workplaces/edit/{workplace}', [Controllers\WorkplacesController::class, 'edit'])->name('workplaces.edit');
+            Route::post('/workplaces/edit/{workplace}', [Controllers\WorkplacesController::class, 'update'])->name('workplaces.update');
+            Route::post('/workplaces/delete/{workplace}', [Controllers\WorkplacesController::class, 'delete'])->name('workplaces.delete');
+        });
 
         // Companies
         Route::get('/companies', [Controllers\CompaniesController::class, 'index'])->name('companies.index');
@@ -94,37 +96,31 @@ Route::middleware(['auth'])->group(function (){
 
         // Types
         Route::get('/types', [Controllers\TypesController::class, 'index'])->name('types.index');
-        Route::get('/types/create', [Controllers\TypesController::class, 'create'])->name('types.create');
-        Route::post('/types/create', [Controllers\TypesController::class, 'store'])->name('types.store');
-        Route::get('/types/edit/{type}', [Controllers\TypesController::class, 'edit'])->name('types.edit');
-        Route::post('/types/edit/{type}', [Controllers\TypesController::class, 'update'])->name('types.update');
-        Route::post('/types/delete/{type}', [Controllers\TypesController::class, 'delete'])->name('types.delete');
+        Route::middleware(['clearance:workplace_leader'])->group(function (){
+            Route::get('/types/create', [Controllers\TypesController::class, 'create'])->name('types.create');
+            Route::post('/types/create', [Controllers\TypesController::class, 'store'])->name('types.store');
+            Route::get('/types/edit/{type}', [Controllers\TypesController::class, 'edit'])->name('types.edit');
+            Route::post('/types/edit/{type}', [Controllers\TypesController::class, 'update'])->name('types.update');
+            Route::post('/types/delete/{type}', [Controllers\TypesController::class, 'delete'])->name('types.delete');
+        });
 
         // Statuses
         Route::get('/statuses', [Controllers\StatusesController::class, 'index'])->name('statuses.index');
-//        Route::get('/statuses/create', [Controllers\StatusesController::class, 'create'])->name('statuses.create');
-//        Route::post('/statuses/create', [Controllers\StatusesController::class, 'store'])->name('statuses.store');
-//        Route::get('/statuses/edit/{status}', [Controllers\StatusesController::class, 'edit'])->name('statuses.edit');
-//        Route::post('/statuses/edit/{status}', [Controllers\StatusesController::class, 'update'])->name('statuses.update');
-//        Route::post('/statuses/delete/{status}', [Controllers\StatusesController::class, 'delete'])->name('statuses.delete');
 
         // Internships
         Route::get('/internships', [Controllers\InternshipsController::class, 'index'])->name('internships.index');
-        Route::get('/internships/create', [Controllers\InternshipsController::class, 'create'])->name('internships.create');
-        Route::post('/internships/create', [Controllers\InternshipsController::class, 'store'])->name('internships.store');
-        Route::get('/internships/edit/{internship}', [Controllers\InternshipsController::class, 'edit'])->name('internships.edit');
-        Route::post('/internships/edit/{internship}', [Controllers\InternshipsController::class, 'update'])->name('internships.update');
-        Route::post('/internships/delete/{internship}', [Controllers\InternshipsController::class, 'delete'])->name('internships.delete');
         Route::get('/internships/statement/{internship}', [Controllers\InternshipsController::class, 'statement'])->name('internships.statement');
         Route::post('/internships/statement/{internship}', [Controllers\InternshipsController::class, 'statement_upload'])->name('internships.statement.upload');
 
         // Study programmes
         Route::get('/study-programmes', [Controllers\StudyProgrammesController::class, 'index'])->name('study_programmes.index');
-        Route::get('/study-programmes/create', [Controllers\StudyProgrammesController::class, 'create'])->name('study_programmes.create');
-        Route::post('/study-programmes/create', [Controllers\StudyProgrammesController::class, 'store'])->name('study_programmes.store');
-        Route::get('/study-programmes/edit/{study_programme}', [Controllers\StudyProgrammesController::class, 'edit'])->name('study_programmes.edit');
-        Route::post('/study-programmes/edit/{study_programme}', [Controllers\StudyProgrammesController::class, 'update'])->name('study_programmes.update');
-        Route::post('/study-programmes/delete/{study_programme}', [Controllers\StudyProgrammesController::class, 'delete'])->name('study_programmes.delete');
+        Route::middleware(['clearance:workplace_leader'])->group(function (){
+            Route::get('/study-programmes/create', [Controllers\StudyProgrammesController::class, 'create'])->name('study_programmes.create');
+            Route::post('/study-programmes/create', [Controllers\StudyProgrammesController::class, 'store'])->name('study_programmes.store');
+            Route::get('/study-programmes/edit/{study_programme}', [Controllers\StudyProgrammesController::class, 'edit'])->name('study_programmes.edit');
+            Route::post('/study-programmes/edit/{study_programme}', [Controllers\StudyProgrammesController::class, 'update'])->name('study_programmes.update');
+            Route::post('/study-programmes/delete/{study_programme}', [Controllers\StudyProgrammesController::class, 'delete'])->name('study_programmes.delete');
+        });
 
         // Subjects
         Route::get('/subjects', [Controllers\SubjectsController::class, 'index'])->name('subjects.index');

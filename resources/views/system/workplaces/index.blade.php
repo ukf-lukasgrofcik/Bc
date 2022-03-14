@@ -14,11 +14,13 @@
                             <h4 class="card-title">Pracoviská</h4>
                         </div>
 
-                        <div class="col-sm-6">
-                            <p class="card-title-desc float-right">
-                                <a href="{{ route('workplaces.create') }}" class="btn btn-primary waves-effect waves-light">Nové pracovisko</a>
-                            </p>
-                        </div>
+                        @if(auth()->user()->clearance('admin'))
+                            <div class="col-sm-6">
+                                <p class="card-title-desc float-right">
+                                    <a href="{{ route('workplaces.create') }}" class="btn btn-primary waves-effect waves-light">Nové pracovisko</a>
+                                </p>
+                            </div>
+                        @endif
                     </div>
 
                     @include('system._partials._alert')

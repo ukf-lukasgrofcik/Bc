@@ -14,11 +14,13 @@
                             <h4 class="card-title">Typy zmlúv</h4>
                         </div>
 
-                        <div class="col-sm-6">
-                            <p class="card-title-desc float-right">
-                                <a href="{{ route('types.create') }}" class="btn btn-primary waves-effect waves-light">Nový typ zmluvy</a>
-                            </p>
-                        </div>
+                        @if(auth()->user()->clearance('workplace_leader'))
+                            <div class="col-sm-6">
+                                <p class="card-title-desc float-right">
+                                    <a href="{{ route('types.create') }}" class="btn btn-primary waves-effect waves-light">Nový typ zmluvy</a>
+                                </p>
+                            </div>
+                        @endif
                     </div>
 
                     @include('system._partials._alert')

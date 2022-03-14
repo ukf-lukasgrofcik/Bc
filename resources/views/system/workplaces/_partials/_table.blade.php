@@ -17,7 +17,7 @@
                 <td>{{ $workplace->leader ? $workplace->leader->name . ' ' . $workplace->leader->surname : '-' }}</td>
                 <td data-sort="{{ $workplace->created_at }}">{{ $workplace->formatTimestamp('created_at', 'd.m.Y H:i:s') }}</td>
                 <td>
-                    @if(auth()->user()->clearance('workplace_leader'))
+                    @if(auth()->user()->clearance('admin'))
                         <a href="{{ route('workplaces.edit', $workplace) }}" title="Editovať" class="btn btn-warning action waves-effect waves-light">
                             <i class="fas fa-pencil-alt"></i>
                         </a>
@@ -27,14 +27,14 @@
                         <i class="fas fa-users"></i>
                     </a>
 
-                        @if(auth()->user()->clearance('workplace_leader'))
-                            <form action="{{ route('workplaces.delete', $workplace) }}" method="post" style="display: inline-block;">
-                                @csrf
-                                <button data-entity="{{ "Pracovisko $workplace->name" }}" type="button" title="Vymazať" class="btn btn-danger action waves-effect waves-light delete-button">
-                                    <i class="fas fa-trash-alt"></i>
-                                </button>
-                            </form>
-                        @endif
+                    @if(auth()->user()->clearance('admin'))
+                        <form action="{{ route('workplaces.delete', $workplace) }}" method="post" style="display: inline-block;">
+                            @csrf
+                            <button data-entity="{{ "Pracovisko $workplace->name" }}" type="button" title="Vymazať" class="btn btn-danger action waves-effect waves-light delete-button">
+                                <i class="fas fa-trash-alt"></i>
+                            </button>
+                        </form>
+                    @endif
                 </td>
             </tr>
         @endforeach

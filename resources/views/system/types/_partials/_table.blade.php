@@ -17,15 +17,17 @@
                 <td>{{ $type->internships->count() }}</td>
                 <td data-sort="{{ $type->created_at }}">{{ $type->formatTimestamp('created_at', 'd.m.Y H:i:s') }}</td>
                 <td>
-                    <a href="{{ route('types.edit', $type) }}" title="Editovať" class="btn btn-warning action waves-effect waves-light">
-                        <i class="fas fa-pencil-alt"></i>
-                    </a>
-                    <form action="{{ route('types.delete', $type) }}" method="post" style="display: inline-block;">
-                        @csrf
-                        <button data-entity="{{ "Typ zmluvy - $type->name" }}" type="button" title="Vymazať" class="btn btn-danger action waves-effect waves-light delete-button">
-                            <i class="fas fa-trash-alt"></i>
-                        </button>
-                    </form>
+                    @if(auth()->user()->clearance('workplace_leader'))
+                        <a href="{{ route('types.edit', $type) }}" title="Editovať" class="btn btn-warning action waves-effect waves-light">
+                            <i class="fas fa-pencil-alt"></i>
+                        </a>
+                        <form action="{{ route('types.delete', $type) }}" method="post" style="display: inline-block;">
+                            @csrf
+                            <button data-entity="{{ "Typ zmluvy - $type->name" }}" type="button" title="Vymazať" class="btn btn-danger action waves-effect waves-light delete-button">
+                                <i class="fas fa-trash-alt"></i>
+                            </button>
+                        </form>
+                    @endif
                 </td>
             </tr>
         @endforeach

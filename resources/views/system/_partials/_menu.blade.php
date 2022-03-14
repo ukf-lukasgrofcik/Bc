@@ -76,7 +76,7 @@
                             @endif
                     @endif
 
-                    @if(auth()->user()->clearance('admin'))
+                    @if(auth()->user()->clearance('lecturer'))
                         <li class="menu-title">Admin</li>
 
                         <li>

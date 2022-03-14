@@ -19,6 +19,12 @@ class InternshipsController extends BaseController
             ->when($status = request('status'), function ($q) use ($status){
                 $q->where('status_id', $status);
             })
+            ->when(auth()->user()->role == 'lecturer', function ($q){
+                $q->where('tutor_id', auth()->id());
+            })
+            ->when(auth()->user()->role == 'workplace_leader', function ($q){
+                $q->whereIn('tutor_id', auth()->user()->workplace->lecturers->pluck('id'));
+            })
             ->with([ 'tutor', 'worker', 'worker.company', 'company', 'student', 'status', 'files' ])
             ->get();
         $statuses = Status::all();
