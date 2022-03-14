@@ -27,7 +27,7 @@ class InternshipsController extends BaseController
         $employee = auth()->user()->company->employees()->findOrFail($request->worker_id);
 
         $internship->worker_id = $employee->id;
-        $internship->status_id = status('approved');
+        $internship->status_id = status('approved')->id;
         $internship->save();
 
         $this->_setFlashMessage('success', "Zamestnancovi $employee->name $employee->surname bola priradená odborná prax študenta " . $internship->student->name . " " . $internship->student->surname);
