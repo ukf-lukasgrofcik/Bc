@@ -45,7 +45,7 @@ Route::middleware(['auth'])->group(function (){
 
     });
 
-    Route::middleware(['clearance:student,admin'])->group(function (){
+    Route::middleware(['clearance:student,lecturer'])->group(function (){
         // Student/Admin shared routes
         Route::get('/internship/{internship}/comments', [Student\CommentsController::class, 'index'])->name('student.internship.comments');
         Route::post('/internship/{internship}/comments', [Student\CommentsController::class, 'store'])->name('student.internship.comments.store');

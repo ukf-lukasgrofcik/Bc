@@ -29,8 +29,6 @@
         <div class="d-flex">
 
             @if(auth()->check())
-                
-
                 <div class="dropdown d-inline-block">
                     <button type="button" class="btn header-item waves-effect" id="page-header-user-dropdown"
                             data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
