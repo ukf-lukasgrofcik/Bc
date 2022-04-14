@@ -9,7 +9,7 @@ class Internship extends BaseModel
 {
 
     protected $fillable = [
-        'academic_year',
+        'academic_year_id',
         'student_id',
         'tutor_id',
         'worker_id',
@@ -25,6 +25,10 @@ class Internship extends BaseModel
 
     public function student(){
         return $this->belongsTo(User::class, 'student_id');
+    }
+
+    public function academic_year(){
+        return $this->belongsTo(AcademicYear::class);
     }
 
     public function tutor(){
@@ -62,6 +66,18 @@ class Internship extends BaseModel
     public function getStatementAttribute(){
         return $this->files->where('type', 'statement')->count() > 0
             ? $this->files->where('type', 'statement')->sortByDesc('created_at')->first()
+            : false;
+    }
+
+    public function getContractAttribute(){
+        return $this->files->where('type', 'contract')->count() > 0
+            ? $this->files->where('type', 'contract')->sortByDesc('created_at')->first()
+            : false;
+    }
+
+    public function getCertificationAttribute(){
+        return $this->files->where('type', 'certification')->count() > 0
+            ? $this->files->where('type', 'certification')->sortByDesc('created_at')->first()
             : false;
     }
 

@@ -41,6 +41,12 @@ class StatusesSeeder extends Seeder
                 'created_at' => now(),
                 'updated_at' => now(),
             ],
+            [
+                'name' => 'Archivovaná',
+                'slug' => 'archived',
+                'created_at' => now(),
+                'updated_at' => now(),
+            ],
         ];
     }
 

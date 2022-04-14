@@ -4,16 +4,19 @@ namespace App\Http\Controllers\Student;
 
 use App\Http\Controllers\BaseController;
 use App\Http\Requests\CreateInternshipRequest;
+use App\Models\AcademicYear;
 use App\Models\Company;
 use App\Models\Internship;
 use App\Models\Status;
 use App\Models\StudyProgramme;
 use App\Models\Type;
 use App\Models\User;
+use App\Traits\UploadTrait;
 use Illuminate\Http\Request;
 
 class InternshipController extends BaseController
 {
+    use UploadTrait;
 
     public function internship(){
         $internship = auth()->user()->internship()
@@ -28,8 +31,9 @@ class InternshipController extends BaseController
         $study_programmes = StudyProgramme::orderBy('name', 'asc')->get();
         $companies = Company::orderBy('name', 'asc')->get();
         $tutors = User::role(['lecturer', 'workplace_leader', 'admin'])->orderBy('name', 'asc')->get();
+        $academic_years = AcademicYear::orderBy('name', 'asc')->get();
 
-        return view('system.student.create', compact('types', 'study_programmes', 'companies', 'tutors'));
+        return view('system.student.create', compact('types', 'study_programmes', 'companies', 'tutors', 'academic_years'));
     }
 
     public function store(CreateInternshipRequest $request){
@@ -42,7 +46,7 @@ class InternshipController extends BaseController
         }
 
         $internship = Internship::create([
-            'academic_year' => $request->academic_year,
+            'academic_year_id' => $request->academic_year_id,
             'student_id' => auth()->id(),
             'tutor_id' => $request->tutor_id,
             'company_id' => isset($company) ? $company->id : $request->company_id,
@@ -50,6 +54,8 @@ class InternshipController extends BaseController
             'type_id' => $request->type_id,
             'subject_id' => $request->subject_id,
         ]);
+
+        $this->upload_file('contract', 'internships', $internship, 'contract');
 
         $this->_setFlashMessage('success', "Odborná prax bola vytvorená.");
 

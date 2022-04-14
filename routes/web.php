@@ -104,6 +104,15 @@ Route::middleware(['auth'])->group(function (){
             Route::post('/types/delete/{type}', [Controllers\TypesController::class, 'delete'])->name('types.delete');
         });
 
+        // Academic years
+        Route::get('/academic-years', [Controllers\AcademicYearsController::class, 'index'])->name('academic_years.index');
+        Route::get('/academic-years/create', [Controllers\AcademicYearsController::class, 'create'])->name('academic_years.create');
+        Route::post('/academic-years/create', [Controllers\AcademicYearsController::class, 'store'])->name('academic_years.store');
+        Route::get('/academic-years/edit/{academic_year}', [Controllers\AcademicYearsController::class, 'edit'])->name('academic_years.edit');
+        Route::post('/academic-years/edit/{academic_year}', [Controllers\AcademicYearsController::class, 'update'])->name('academic_years.update');
+        Route::post('/academic-years/delete/{academic_year}', [Controllers\AcademicYearsController::class, 'delete'])->name('academic_years.delete');
+
+
         // Statuses
         Route::get('/statuses', [Controllers\StatusesController::class, 'index'])->name('statuses.index');
 
@@ -111,6 +120,10 @@ Route::middleware(['auth'])->group(function (){
         Route::get('/internships', [Controllers\InternshipsController::class, 'index'])->name('internships.index');
         Route::get('/internships/statement/{internship}', [Controllers\InternshipsController::class, 'statement'])->name('internships.statement');
         Route::post('/internships/statement/{internship}', [Controllers\InternshipsController::class, 'statement_upload'])->name('internships.statement.upload');
+        Route::get('/internships/certification/{internship}', [Controllers\InternshipsController::class, 'certification'])->name('internships.certification');
+        Route::post('/internships/certification/{internship}', [Controllers\InternshipsController::class, 'certification_upload'])->name('internships.certification.upload');
+        Route::post('/internships/approve/{internship}', [Controllers\InternshipsController::class, 'approve'])->name('internships.approve');
+        Route::post('/internships/archive/{internship}', [Controllers\InternshipsController::class, 'archive'])->name('internships.archive');
 
         // Study programmes
         Route::get('/study-programmes', [Controllers\StudyProgrammesController::class, 'index'])->name('study_programmes.index');
