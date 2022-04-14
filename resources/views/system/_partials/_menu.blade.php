@@ -101,6 +101,7 @@
                                         <li><a href="{{ route('subjects.index') }}">Zoznam predmetov</a></li>
                                     </ul>
                                 </li>
+                                <li><a href="{{ route('academic_years.index') }}">Zoznam akademických rokov</a></li>
                                 <li><a href="{{ route('types.index') }}">Zoznam typov</a></li>
                                 <li><a href="{{ route('statuses.index') }}">Zoznam statusov</a></li>
                                 <li><a href="{{ route('internships.index') }}">Odborné praxe</a></li>

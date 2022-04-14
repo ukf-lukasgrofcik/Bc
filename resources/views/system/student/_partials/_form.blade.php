@@ -1,12 +1,16 @@
-<form method="post" action="{{ route('student.internship.store') }}">
+<form method="post" action="{{ route('student.internship.store') }}" enctype="multipart/form-data">
     @csrf
-    @if($errors->any()){{ $errors }}@endif
     <div class="row">
         <div class="col-lg-4">
             <div class="form-group">
-                <label for="academic_year" class="control-label">Akademický rok</label>
-                <input type="text" name="academic_year" class="form-control {{ $errors->has('academic_year') ? 'parsley-error' : '' }}" value="{{ old('academic_year') }}">
-                @include('system._partials._error', ['error' => 'academic_year'])
+                <label for="academic_year_id" class="control-label">Akademický rok</label>
+                <select class="form-control {{ $errors->has('academic_year_id') ? 'parsley-error' : '' }}" name="academic_year_id" id="academic_year_id">
+                    <option value>Vyberte akademický rok</option>
+                    @foreach($academic_years as $academic_year)
+                        <option value="{{ $academic_year->id }}" {{ old('academic_year_id') == $academic_year->id ? 'selected' : '' }}>{{ $academic_year->name }}</option>
+                    @endforeach
+                </select>
+                @include('system._partials._error', ['error' => 'academic_year_id'])
             </div>
         </div>
 
@@ -63,6 +67,16 @@
     </div>
 
     <hr class="mb-5">
+
+    <div class="row">
+        <div class="col-lg-4">
+            <div class="form-group">
+                <label for="contract">Dohoda o brigádnickej činnosti</label>
+                <input class="form-control filestyle" type="file" name="contract" id="contract">
+                @include('auth._partials._errors', ['column' => 'contract'])
+            </div>
+        </div>
+    </div>
 
     <div class="row">
         <div class="col-lg-12">

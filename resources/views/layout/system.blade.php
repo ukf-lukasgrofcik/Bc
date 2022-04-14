@@ -30,6 +30,7 @@
 
             @include('system._partials._footer')
             @include('system._partials._delete_modal')
+            @include('system._partials._confirm_modal')
         </div>
     </div>
 

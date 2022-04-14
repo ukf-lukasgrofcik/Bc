@@ -24,10 +24,11 @@ class CreateInternshipRequest extends FormRequest
     public function rules()
     {
         return [
-            'academic_year' => 'required|string|max:255',
             'type_id' => 'required|integer|exists:types,id',
+            'academic_year_id' => 'required|integer|exists:academic_years,id',
             'tutor_id' => 'required|integer|exists:users,id',
             'subject_id' => 'required|integer|exists:subjects,id',
+            'contract' => 'required|file',
 
             'company_id' => 'required_without:company.name,company.address,company.email|nullable|integer|exists:companies,id',
             'company.name' => 'required_without:company_id|nullable|string|max:255',
