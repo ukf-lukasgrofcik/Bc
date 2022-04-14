@@ -26,7 +26,12 @@
                                 </div>
 
                                 <div>
-                                    @include('system._partials._buttons')
+                                    <button type="submit" class="btn btn-primary waves-effect waves-light">
+                                        Uložiť
+                                    </button>
+                                    <a href="{{ \Illuminate\Support\Facades\URL::current() }}" class="btn btn-secondary waves-effect m-l-5">
+                                        Zrušiť
+                                    </a>
                                 </div>
                             </div>
                         </form>

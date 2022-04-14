@@ -25,8 +25,39 @@
                                     </div>
                                 </div>
 
+                                <div class="col-sm-3">
+                                    <div class="form-group">
+                                        <select name="academic_year" class="form-control select2">
+                                            <option value>Vyberte akademický rok</option>
+                                            @foreach($academic_years as $academic_year)
+                                                <option value="{{ $academic_year->id }}" {{ request('academic_year') == $academic_year->id ? 'selected' : '' }}>{{ $academic_year->name }}</option>
+                                            @endforeach
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <div class="col-sm-3">
+                                    <div class="form-group">
+                                        <select name="study_programme" class="form-control select2">
+                                            <option value>Vyberte študijný program</option>
+                                            @foreach($study_programmes as $study_programme)
+                                                <option value="{{ $study_programme->id }}" {{ request('study_programme') == $study_programme->id ? 'selected' : '' }}>{{ $study_programme->name }}</option>
+                                            @endforeach
+                                        </select>
+                                    </div>
+                                </div>
+
                                 <div>
-                                    @include('system._partials._buttons')
+                                    <div class="form-group">
+                                        <div>
+                                            <button type="submit" class="btn btn-primary waves-effect waves-light">
+                                                Uložiť
+                                            </button>
+                                            <a href="{{ \Illuminate\Support\Facades\URL::current() }}" class="btn btn-secondary waves-effect m-l-5">
+                                                Zrušiť
+                                            </a>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </form>

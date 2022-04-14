@@ -6,6 +6,7 @@ $(function () {
     // Custom Initialisation
     initRandomPasswordGenerator();
     initDeleteModal();
+    initConfirmModal();
 
     initInternshipAjax();
 
@@ -79,6 +80,23 @@ function initDeleteModal(){
     });
 
     $('#delete-modal-button').on("click", () => form.submit());
+}
+
+/**
+ * Confirm Modal Initialization
+ */
+function initConfirmModal(){
+    let form;
+
+    $('.confirm-button').on('click', function(){
+        $('.confirm-modal-entity').text($(this).data('entity'));
+
+        form = $(this).parent();
+
+        $('#confirm-modal').modal();
+    });
+
+    $('#confirm-modal-button').on("click", () => form.submit());
 }
 
 function initInternshipAjax() {
